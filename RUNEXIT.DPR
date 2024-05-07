@@ -21,7 +21,7 @@ begin
     pathName := ParamStr (1);
     i := (StrRScan (@pathName [1], '\') - @pathName [1]) + 1;
     fileName := Copy (pathName, i + 1, Length (pathName) - i);
-    pathName := Copy (pathName, 1, i);
+    pathName := Copy (pathName, 1, i - 1);
   end else begin
     fileName := ParamStr (1);
   end;
@@ -40,7 +40,7 @@ begin
   params := params + #0;
 
   { Execute the command }
-  h := ShellExecute (0, nil, @fileName [1], @params [1], @pathName [1], SW_SHOWNORMAL);
+  h := ShellExecute (0, 'open', @fileName [1], @params [1], @pathName [1], SW_SHOWNORMAL);
   if (h >= 32) then
   begin
     { Wait for it to complete }
